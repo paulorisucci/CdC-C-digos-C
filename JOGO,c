@@ -9,7 +9,6 @@ void flush_in(){
 }
 struct jogadores{
 	char nomes[40];
-	int numerojogador;
 	int pontuacao;
 };
 int main()
@@ -17,7 +16,7 @@ int main()
   setlocale(LC_ALL,""); // Permite o uso de qualquer caractere especial;
 	struct jogadores player, *qtdejogadores;	// Ponteiro para alocação dinamica; 
 	
-	int qtde, i; 	  
+	int qtde, i, numjogador = 1; 	  
 	printf("Digite a quantidade de jogadores: ");                                //quantidade de jogadores;
 	scanf("%d", &qtde);
 	
@@ -32,19 +31,13 @@ int main()
    
    gets(qtdejogadores[i].nomes);
    
-   qtdejogadores[i].numerojogador = 1;
-   printf("\n%s\n", qtdejogadores[i].nomes);
+   printf("Jogador: %s - > Número: %d - > pontuação: %d\n",qtdejogadores[i].nomes, numjogador, qtdejogadores[i].pontuacao );
    
    
-   
-   
-   
-   printf("Jogador: %s - > Número: %d - > pontuação: %d\n",qtdejogadores[i].nomes, qtdejogadores[i].numerojogador, qtdejogadores[i].pontuacao );
-   qtdejogadores[i].numerojogador++;
    if(i < aux)
-   {
-   printf("Digite enter para recomeçar o jogo.\n\n");
-   }
+   printf("Digite enter para recomeçar o jogo.\n");
+   numjogador++;
+   
   }
 
 
