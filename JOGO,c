@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+#include <locale.h>
+void flush_in(){
+	int ch;
+	while((ch = getc(stdin))!= EOF && ch != '\n'){
+	}
+}
+struct jogadores{
+	char nomes[40];
+	int numerojogador;
+	int pontuacao;
+};
+int main()
+{
+  setlocale(LC_ALL,""); // Permite o uso de qualquer caractere especial;
+	struct jogadores player, *qtdejogadores;	// Ponteiro para alocação dinamica; 
+	
+	int qtde, i; 	  
+	printf("Digite a quantidade de jogadores: ");                                //quantidade de jogadores;
+	scanf("%d", &qtde);
+	
+	qtdejogadores = (struct jogadores*) malloc (qtde*sizeof(struct jogadores)); // separando memoria para todos os jogadores;
+	
+  for(i = 0; i < qtde; i++) // Estrutura do jogo para cada jogador;
+  {
+  	int aux = qtde - 1; // aux vai servir para não repetir o ultimo printf na vez do ultimo jogador.
+  	qtdejogadores[i].pontuacao = 0;
+	flush_in();
+   printf("Digite seu nome : ");
+   
+   gets(qtdejogadores[i].nomes);
+   
+   qtdejogadores[i].numerojogador = 1;
+   printf("\n%s\n", qtdejogadores[i].nomes);
+   
+   
+   
+   
+   
+   printf("Jogador: %s - > Número: %d - > pontuação: %d\n",qtdejogadores[i].nomes, qtdejogadores[i].numerojogador, qtdejogadores[i].pontuacao );
+   qtdejogadores[i].numerojogador++;
+   if(i < aux)
+   {
+   printf("Digite enter para recomeçar o jogo.\n\n");
+   }
+  }
+
+
+	free(qtdejogadores); // liberando memoria do programa
+}
