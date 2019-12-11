@@ -6,10 +6,10 @@
 #include "funcoesheyguy.h"
 int main()
 {
-char espaco, tecla;
-int qtde, highscore = 0, aux;
-int gameover;
-int x_atual, y_atual, x_anterior, y_anterior;
+char espaco, tecla; 
+int qtde, highscore = 0, aux; 
+int gameover; // Controle do fim do jogo
+int x_atual, y_atual, x_anterior, y_anterior; // variáveis para a manipulação da matriz
 int k, l, z; // variáveis para percorrer for
 struct jogadores *jogadores;	// Ponteiro para alocação dinamica; 	
 	
@@ -29,7 +29,7 @@ struct jogadores *jogadores;	// Ponteiro para alocação dinamica;
 	
     for(z = 0; z < qtde; z++) // Estrutura do jogo para cada jogador;
     {
-  		char matriz[20][10] = { {'K','K','R','I','P','T','O','N',' ','K'}, // ESTRUTURA DO JOGO
+  		char matriz[20][10] = { {'K','K','R','I','P','T','O','N',' ','K'}, // Formato do jogo
 					 			{'K',' ',' ',' ',' ',' ',' ',' ',' ','K'},
 					 			{'K',' ',' ',' ',' ',' ',' ',' ',' ','K'},
 					 			{'K',' ',' ',' ',' ',' ',' ',' ',' ','K'},
@@ -53,30 +53,25 @@ struct jogadores *jogadores;	// Ponteiro para alocação dinamica;
 		x_atual = 5, y_atual = 19; // posição atual do S
 		gameover = 0;  
 		jogadores[z].pontuacao = 0;
-		flush_in(); // limpa o buffer do teclado
-	
+		
+		
+		flush_in(); // Limpa o buffer do teclado
 		printf("Digite seu nome : ");
 		gets(jogadores[z].nomes);
    
-		printf("\nControle o jogo usando as teclas \n'a' - esquerda\n'd'- direita\nCaso pressione outra tecla, o Superman repetirá o último movimento!");
-    	printf("\npressione ENTER para confirmar a escolha à cada movimento.\n");
-    	printf("NÃO encoste nas K(riptonitas).\nENTER - Ok\n\n");
-	 	getchar();
-    	system("cls"); // limpa a tela
-		system("color bC");
+		instrucoes();
 
 		for(k = 0; k < 20; k++) // Imprime o formato do jogo
 		{
 			for(l = 0; l < 10; l++)
-			{
 		  		printf("%c", matriz[k][l]);
-			}
 			printf("\n");
 		}
-		tecla = getchar(); 
+		
+		tecla = getchar();
+		flush_in(); 
 		while(tecla != 'a' && tecla != 'd')// erro do usuário
 		{
-			flush_in();
 			printf("Comando inválido! Tente novamente.");
 			tecla = getchar();
     	}
@@ -90,15 +85,19 @@ struct jogadores *jogadores;	// Ponteiro para alocação dinamica;
 			{
 				y_anterior = y_atual + 1;
 				x_anterior = x_atual + 1;
-				system("cls"); // limpa a tela para não printar várias vezes o array
+				system("cls"); // Limpa a tela 
 				Sleep(100);
 		
-				matriz[y_atual][x_atual] = 'S'; // faz o S "andar"
-				matriz[y_anterior][x_anterior] = ' '; // matriz[x][y] apaga o rastro de 'S' do caminho
+				matriz[y_atual][x_atual] = 'S'; // Atualiza a posição de 'S' na matriz.
+				matriz[y_anterior][x_anterior] = ' '; // Apaga a posição anterior de 'S' na matriz.
 
 				jogadores[z].pontuacao = jogadores[z].pontuacao + 1;
+				
+				if(matriz[y_anterior][0] == ' ' ||matriz[y_anterior][9] == ' ' ){ 
+							matriz[y_anterior][x_anterior] = 'K';
+						}
 
-			if(matriz[y_atual][0] == 'S' || matriz[y_atual][9] == 'S') // FUNÇÃO GAMEOVER(QUANDO BATE NO S)
+			if(matriz[y_atual][0] == 'S' || matriz[y_atual][9] == 'S') // Gameover
 			{
 				printf("GAME OVER\n");
 				gameover = 1;
@@ -124,46 +123,49 @@ struct jogadores *jogadores;	// Ponteiro para alocação dinamica;
 			}
 			}
 
-			if(tecla == 'd')
+			if(tecla == 'd') // 'S' vai para direita
 			{
 	
 				for(x_atual, y_atual; ; x_atual++, y_atual--)
-					{ // AVANÇA O 'S' PARA DIREITA
+					{ 
 						y_anterior = y_atual + 1;
-						x_anterior = x_atual - 1; // X E Y TEM O PAPEL DE "IMPRIMIR ESPAÇOS ONDE O 'S' ESTAVA"
+						x_anterior = x_atual - 1; 
 						system("cls"); 
 						Sleep(100); 
 						matriz[y_atual][x_atual] = 'S';
-						matriz[y_anterior][x_anterior] = ' '; // X E Y TEM O PAPEL DE IMPRIMIR ESPAÇOS ONDE O 'S' ESTAVA
-						jogadores[z].pontuacao = jogadores[z].pontuacao + 1;
-
-						if(matriz[y_atual][0] == 'S' || matriz[y_atual][9] == 'S')// FUNÇÃO GAMEOVER
+						matriz[y_anterior][x_anterior] = ' '; // Limpa o "rastro" do S 
+						jogadores[z].pontuacao = jogadores[z].pontuacao + 1; // Aumenta a pontuação à cada iteração
+						
+						if(matriz[y_anterior][0] == ' ' ||matriz[y_anterior][9] == ' ' ){ 
+							matriz[y_anterior][x_anterior] = 'K';
+						}
+						if(matriz[y_atual][0] == 'S' || matriz[y_atual][9] == 'S')// Fim de jogo
 							{ 
 							printf("GAME OVER\n");
 							gameover = 1;
 							break;
 							}
-						if(matriz[0][x_atual] == 'S')// FUNÇÃO WIN
+						if(matriz[0][x_atual] == 'S')// Vitória
 							{ 
 								printf("Parabéns! o Superman chegou à Kripton graças aos seus esforços!\n"); 
 								gameover = 1;
 								break;
 							}
 			
-							for(k = 0; k < 20; k++)
+							for(k = 0; k < 20; k++) // Imprime a matriz após a jogada
 							{
 								for(l = 0; l < 10; l++)
 								printf("%c", matriz[k][l]); 
 								printf("\n");
  							}	 
-							tecla = getchar();
-							if(tecla == 'a')
+							tecla = getchar(); // Atualiza o valor de tecla
+							if(tecla == 'a')  // Se tecla vale 'a', o laço para e recomeça
 							break;
 
 					}
 		}
 		}
-					if(jogadores[z].pontuacao > highscore)
+					if(jogadores[z].pontuacao > highscore) // Criando o highscore da partida
 					{
 					highscore = jogadores[z].pontuacao;
 					aux = z;
@@ -174,10 +176,10 @@ struct jogadores *jogadores;	// Ponteiro para alocação dinamica;
 
 	}
 	printf("Lista de jogadores-\n");
+	
 	for(z = 0; z < qtde; z++)
-	{
-		printf("Nome: %s / Número: %d /Pontuação: %d\n",jogadores[z].nomes, z + 1, jogadores[z].pontuacao );
-	}
-	printf("\n\nJogador com maior pontuação: %s\nPontuação: %d",jogadores[aux].nomes, highscore);
+		printf("Nome: %s / Número: %d /Pontuação: %d\n",jogadores[z].nomes, z + 1, jogadores[z].pontuacao ); // Imprime a lista de jogadores
+		
+	printf("\n\nJogador com maior pontuação: %s\nPontuação: %d pontos",jogadores[aux].nomes, highscore); // Imprime o jogador com a maior pontuação
 	free(jogadores);
 }
