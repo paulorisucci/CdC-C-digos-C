@@ -12,7 +12,7 @@ int gameover; // Controle do fim do jogo
 int x_atual, y_atual, x_anterior, y_anterior; // variáveis para a manipulação da matriz
 int k, l, z; // variáveis para percorrer for
 struct jogadores *jogadores;	// Ponteiro para alocação dinamica; 	
-	
+FILE *maiorpont;
 	setlocale(LC_ALL,""); 
 	cabecalho();
 	texto();
@@ -167,7 +167,11 @@ struct jogadores *jogadores;	// Ponteiro para alocação dinamica;
 		}
 					if(jogadores[z].pontuacao > highscore) // Criando o highscore da partida
 					{
+					remove("highscore.txt");
 					highscore = jogadores[z].pontuacao;
+					maiorpont = fopen("highscore.txt", "a");
+					fprintf(maiorpont, "%d", highscore);
+					fclose(maiorpont);
 					aux = z;
 					}
    
