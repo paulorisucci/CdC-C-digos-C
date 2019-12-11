@@ -1,19 +1,29 @@
-void introducao(){
+void instrucoes(){ //frases de instruções
+	printf("\nControle o jogo usando as teclas \n'a' - esquerda\n'd'- direita\nCaso pressione outra tecla, o Superman repetirá o último movimento!");
+    	printf("\npressione ENTER para confirmar a escolha à cada movimento.\n");
+    	printf("NÃO encoste nas K(riptonitas).\nENTER - Ok\n\n");
+	 	getchar();
+    	system("cls"); // limpa a tela
+		system("color bC"); // deixa a cor vermelha
+}
+
+void introducao(){ // frases de introdução
 	printf("Controle o jogo usando as teclas \n'a' - esquerda\n'd'- direita\nCaso pressione outra tecla, o Superman repetirá o último movimento!");
     printf("\npressione ENTER para confirmar a escolha à cada movimento.\n");
     printf("Mude de direção e ganhe pontos extras!!\n");
     printf("NÃO encoste nas K(riptonitas).\nENTER - Ok\n\n");
 }
-void flush_in(){
+
+void flush_in(){ // limpa o buffer do teclado
 	int ch;
 	while((ch = getc(stdin))!= EOF && ch != '\n'){}
 }
-struct jogadores{
+struct jogadores{ // estrutura de cada jogador
 	char nomes[40];
 	int pontuacao;
-	int highscore;
 };
-int cabecalho()
+
+int cabecalho() // Desenho do menu
 {
 	system("color b0");
 	printf("------------------------------------------------------------------------------------------------------------------------------------------------------------------------"
@@ -40,7 +50,7 @@ int cabecalho()
 }
 
 
-int texto(){
+int texto(){ // Texto da história
 	
 	printf("\t\t\t\t\t\t\t\t\t\t\tO ");
 	Sleep(100);
