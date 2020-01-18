@@ -1,3 +1,31 @@
+/*22.Leia o nome completo de uma pessoa (nome /  nome do meio  / sobrenome) de uma vez só.
+Em seguida, exiba cada uma das palavras do nome em linhas diferentes.
+*/
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+int main(){
+	setlocale(LC_ALL, "");
+	char nome[50];
+	int i, j;
+	printf("Digite seu nome: ");
+	gets(nome);
+	for(i = 49; i >= 0; i--){
+		if(nome[i - 1] == ' ' || i == 0){
+		for(j = i; j <= 49, nome[j] != ' '; j++){
+			if(nome[j] != ' ' && nome[j] >= 'A' && nome[j] <= 'Z' || nome[j] >= 'a' && nome[j] <= 'z')
+				printf("%c", nome[j]);
+	}
+		}
+		if(nome[i] == ' ')
+	printf("\n");
+	}
+}
+
+
+
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
